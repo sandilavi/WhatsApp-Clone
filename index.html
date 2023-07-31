@@ -87,49 +87,53 @@
 <body>
     <div id="sidebar">
         <div id="headline_sidebar" class="headline"></div>   
-        <div id="contacts">
-
-            <div id="contact1" class="contacts">
-                <div class="profile_pic_container ppc_contact">
-                    <img src="images/download(1).jpg" class="profile_pic">
-                </div>
-                <div class="name_container">
-                    <p class="name_contacts">Elon Musk</p>
-                </div>
-            </div>
-            <div id="contact2" class="contacts">
-                <div class="profile_pic_container ppc_contact">
-                    <img src="images/download(2).jpg" class="profile_pic">
-                </div>
-                <div class="name_container">
-                    <p class="name_contacts">Jeff Bezos</p>
-                </div>
-            </div>
-            <div id="contact3" class="contacts">
-                <div class="profile_pic_container ppc_contact">
-                    <img src="images/download(3).jpg" class="profile_pic">
-                </div>
-                <div class="name_container">
-                    <p class="name_contacts">Bill Gates</p>
-                </div>
-            </div>
-
-        </div>
+        <div id="contacts"></div>
     </div>
 
     <div id="content"></div>
 
 <script>
-    msgs_arr1 = [];
-    msgs_arr2 = [];
-    msgs_arr3 = []; 
+    //Add Contacts Dynamically
+    const addContacts = `
+        <div id="contact1" class="contacts">
+            <div class="profile_pic_container ppc_contact">
+                <img src="images/download(1).jpg" class="profile_pic">
+            </div>
+            <div class="name_container">
+                <p class="name_contacts">Elon Musk</p>
+            </div>
+        </div>
 
-    document.querySelector("#contact1").onclick = function() {
+        <div id="contact2" class="contacts">
+            <div class="profile_pic_container ppc_contact">
+                <img src="images/download(2).jpg" class="profile_pic">
+            </div>
+            <div class="name_container">
+                <p class="name_contacts">Jeff Bezos</p>
+            </div>
+        </div>
+
+        <div id="contact3" class="contacts">
+            <div class="profile_pic_container ppc_contact">
+                <img src="images/download(3).jpg" class="profile_pic">
+            </div>
+            <div class="name_container">
+                <p class="name_contacts">Bill Gates</p>
+            </div>
+        </div>
+    `;
+    document.querySelector("#contacts").innerHTML = addContacts;
+
+    
+    const msgLogsForAllContacts = []; 
+
+    function contentGenerate(contactID) {
+    document.querySelector(`#contact${contactID}`).onclick = function() {
         const dynContent=`
         <div id="dynContent">
             <div id="headline_content" class="headline">
                 <div class="profile_pic_container ppc_content">
-                    <img src="images/download(1).jpg" class="profile_pic">
+                    <img src="images/download(${contactID}).jpg" class="profile_pic">
                 </div>
                 <div class="name_container">
                     <p class="name_content"></p>
@@ -137,6 +141,7 @@
             </div>
 
             <div id="msg_content">
+                <button class="removeContact">remove</button>
                 <div class="messages"></div>
                 <input class="enterMsg" type="text">
                 <button class="btn">B</button>
@@ -145,9 +150,9 @@
         `;
         document.querySelector("#content").innerHTML = dynContent;
     
-        for (let i = 0; i < msgs_arr1.length; i++) { //Go through the messages in relavant contact
+        for (let i = 0; i < msgLogsForAllContacts[contactID-1].messages.length; i++) { //Go through the messages in relavant contact
             const newMsg = document.createElement("p");
-            newMsg.textContent = msgs_arr1[i];
+            newMsg.textContent = msgLogsForAllContacts[contactID-1].messages[i]; //Put the message to the p tag
             const messages = document.querySelector(".messages");
             messages.appendChild(newMsg);
 
@@ -164,103 +169,32 @@
 
             newMsg.style.backgroundColor = "red";
             newMsg.style.margin = "10px";
-            msgs_arr1.push(enteredMsg);
+
+            msgLogsForAllContacts[contactID-1].messages.push(enteredMsg); //Push the message to the msgLogsForAllContacts array
+        }
+        document.querySelector(".removeContact").onclick = function() {
+            const contactRemove = document.querySelector(`#contact${contactID}`);
+            contactRemove.remove();
+
+            const contentRemove = document.querySelector("#dynContent");                   
+            contentRemove.remove();
         }
 
         //Display the name in the headline_content
-        document.querySelector(".name_content").textContent = document.querySelector("#contact1 .name_contacts").textContent;
+        document.querySelector(".name_content").textContent = document.querySelector(`#contact${contactID} .name_contacts`).textContent;
     }
 
-    document.querySelector("#contact2").onclick = function() {
-        const dynContent=`
-        <div id="dynContent">
-            <div id="headline_content" class="headline">
-                <div class="profile_pic_container ppc_content">
-                    <img src="images/download(2).jpg" class="profile_pic">
-                </div>
-                <div class="name_container">
-                    <p class="name_content"></p>
-                </div>
-            </div>
-
-            <div id="msg_content">
-                <div class="messages"></div>
-                <input class="enterMsg" type="text">
-                <button class="btn">B</button>
-            </div>
-        </div>
-        `;
-        document.querySelector("#content").innerHTML = dynContent;
-    
-        for (let i = 0; i < msgs_arr2.length; i++) {
-            const newMsg = document.createElement("p");
-            newMsg.textContent = msgs_arr2[i];
-            const messages = document.querySelector(".messages");
-            messages.appendChild(newMsg);
-
-            newMsg.style.backgroundColor = "red";
-            newMsg.style.margin = "10px";
-        }
-        document.querySelector(".btn").onclick = function() {
-            const enteredMsg = document.querySelector(".enterMsg").value;
-
-            const newMsg = document.createElement("p");
-            newMsg.textContent = enteredMsg;
-            const messages = document.querySelector(".messages");
-            messages.appendChild(newMsg);
-
-            newMsg.style.backgroundColor = "red";
-            newMsg.style.margin = "10px";
-            msgs_arr2.push(enteredMsg);
-        }
-
-        document.querySelector(".name_content").textContent = document.querySelector("#contact2 .name_contacts").textContent;
+        //Create an object to store the data for a contact
+        const msgLogForContact = {
+            index : contactID,
+            messages : []
+        };
+        msgLogsForAllContacts.push(msgLogForContact);
     }
 
-    document.querySelector("#contact3").onclick = function() {
-        const dynContent=`
-        <div id="dynContent">
-            <div id="headline_content" class="headline">
-                <div class="profile_pic_container ppc_content">
-                    <img src="images/download(3).jpg" class="profile_pic">
-                </div>
-                <div class="name_container">
-                    <p class="name_content"></p>
-                </div>
-            </div>
-
-            <div id="msg_content">
-                <div class="messages"></div>
-                <input class="enterMsg" type="text">
-                <button class="btn">B</button>
-            </div>
-        </div>
-        `;
-        document.querySelector("#content").innerHTML = dynContent;
-    
-        for (let i = 0; i < msgs_arr3.length; i++) {
-            const newMsg = document.createElement("p");
-            newMsg.textContent = msgs_arr3[i];
-            const messages = document.querySelector(".messages");
-            messages.appendChild(newMsg);
-
-            newMsg.style.backgroundColor = "red";
-            newMsg.style.margin = "10px";
-        }
-        document.querySelector(".btn").onclick = function() {
-            const enteredMsg = document.querySelector(".enterMsg").value;
-
-            const newMsg = document.createElement("p");
-            newMsg.textContent = enteredMsg;
-            const messages = document.querySelector(".messages");
-            messages.appendChild(newMsg);
-
-            newMsg.style.backgroundColor = "red";
-            newMsg.style.margin = "10px";
-            msgs_arr3.push(enteredMsg);
-        }
-
-        document.querySelector(".name_content").textContent = document.querySelector("#contact3 .name_contacts").textContent;
+    //Iterate through the loop to run the contentGenerate method for every contact
+    for (let contactID = 1; contactID <= 3; contactID++) {
+        contentGenerate(contactID);
     }
 </script>
 
