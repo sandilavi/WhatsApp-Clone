@@ -1,0 +1,268 @@
+<html>
+<head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    /*Sidebar and Headline*/
+    #sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 30%;
+        height: 100vh;
+        background-color: grey;
+        border-right: 1px solid;
+    }
+    .headline {
+        position: relative;
+        top: 0;
+        left: 0;
+        height: 10%;
+        background-color: yellow;
+        border-bottom: 1px solid;
+    }
+    #headline_sidebar {
+        width: 100%;
+    }
+    #headline_content {
+        width: 99.9%;
+        border-left: 1px solid;
+    }
+
+    /*Contacts*/
+    .contacts {
+        height: 10%;
+        border-bottom: 1px solid;
+    }
+    .profile_pic_container {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        float: left;
+    }
+    .ppc_contact {
+        width: 18%;
+    }
+    .ppc_content {
+        width: 8%;
+    }
+    .name_container {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        float: left;
+    }
+    .profile_pic {
+        width: 85%;
+        height: 85%;
+        text-align: center;
+        border-radius: 50%;
+    }
+
+    /*Content*/
+    #content {
+        margin-left: 30%;
+        height: 100vh;
+        background-color: aqua;
+    }
+    .enterMsg {
+        position: fixed;
+        top: 640px;
+        left: 420px;
+        width: 65%;
+    }
+    .btn {
+        position: fixed;
+        top: 640px;
+        left: 1320px;
+        width: 2%;
+    }
+</style>
+</head>
+
+<body>
+    <div id="sidebar">
+        <div id="headline_sidebar" class="headline"></div>   
+        <div id="contacts">
+
+            <div id="contact1" class="contacts">
+                <div class="profile_pic_container ppc_contact">
+                    <img src="images/download(1).jpg" class="profile_pic">
+                </div>
+                <div class="name_container">
+                    <p class="name_contacts">Elon Musk</p>
+                </div>
+            </div>
+            <div id="contact2" class="contacts">
+                <div class="profile_pic_container ppc_contact">
+                    <img src="images/download(2).jpg" class="profile_pic">
+                </div>
+                <div class="name_container">
+                    <p class="name_contacts">Jeff Bezos</p>
+                </div>
+            </div>
+            <div id="contact3" class="contacts">
+                <div class="profile_pic_container ppc_contact">
+                    <img src="images/download(3).jpg" class="profile_pic">
+                </div>
+                <div class="name_container">
+                    <p class="name_contacts">Bill Gates</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="content"></div>
+
+<script>
+    msgs_arr1 = [];
+    msgs_arr2 = [];
+    msgs_arr3 = []; 
+
+    document.querySelector("#contact1").onclick = function() {
+        const dynContent=`
+        <div id="dynContent">
+            <div id="headline_content" class="headline">
+                <div class="profile_pic_container ppc_content">
+                    <img src="images/download(1).jpg" class="profile_pic">
+                </div>
+                <div class="name_container">
+                    <p class="name_content"></p>
+                </div>
+            </div>
+
+            <div id="msg_content">
+                <div class="messages"></div>
+                <input class="enterMsg" type="text">
+                <button class="btn">B</button>
+            </div>
+        </div>
+        `;
+        document.querySelector("#content").innerHTML = dynContent;
+    
+        for (let i = 0; i < msgs_arr1.length; i++) { //Go through the messages in relavant contact
+            const newMsg = document.createElement("p");
+            newMsg.textContent = msgs_arr1[i];
+            const messages = document.querySelector(".messages");
+            messages.appendChild(newMsg);
+
+            newMsg.style.backgroundColor = "red";
+            newMsg.style.margin = "10px";
+        }
+        document.querySelector(".btn").onclick = function() {
+            const enteredMsg = document.querySelector(".enterMsg").value;
+
+            const newMsg = document.createElement("p");
+            newMsg.textContent = enteredMsg; //Entered text in the textfield will bind with p tag. Like <p>(ENTERED TEXT)
+            const messages = document.querySelector(".messages");
+            messages.appendChild(newMsg);
+
+            newMsg.style.backgroundColor = "red";
+            newMsg.style.margin = "10px";
+            msgs_arr1.push(enteredMsg);
+        }
+
+        //Display the name in the headline_content
+        document.querySelector(".name_content").textContent = document.querySelector("#contact1 .name_contacts").textContent;
+    }
+
+    document.querySelector("#contact2").onclick = function() {
+        const dynContent=`
+        <div id="dynContent">
+            <div id="headline_content" class="headline">
+                <div class="profile_pic_container ppc_content">
+                    <img src="images/download(2).jpg" class="profile_pic">
+                </div>
+                <div class="name_container">
+                    <p class="name_content"></p>
+                </div>
+            </div>
+
+            <div id="msg_content">
+                <div class="messages"></div>
+                <input class="enterMsg" type="text">
+                <button class="btn">B</button>
+            </div>
+        </div>
+        `;
+        document.querySelector("#content").innerHTML = dynContent;
+    
+        for (let i = 0; i < msgs_arr2.length; i++) {
+            const newMsg = document.createElement("p");
+            newMsg.textContent = msgs_arr2[i];
+            const messages = document.querySelector(".messages");
+            messages.appendChild(newMsg);
+
+            newMsg.style.backgroundColor = "red";
+            newMsg.style.margin = "10px";
+        }
+        document.querySelector(".btn").onclick = function() {
+            const enteredMsg = document.querySelector(".enterMsg").value;
+
+            const newMsg = document.createElement("p");
+            newMsg.textContent = enteredMsg;
+            const messages = document.querySelector(".messages");
+            messages.appendChild(newMsg);
+
+            newMsg.style.backgroundColor = "red";
+            newMsg.style.margin = "10px";
+            msgs_arr2.push(enteredMsg);
+        }
+
+        document.querySelector(".name_content").textContent = document.querySelector("#contact2 .name_contacts").textContent;
+    }
+
+    document.querySelector("#contact3").onclick = function() {
+        const dynContent=`
+        <div id="dynContent">
+            <div id="headline_content" class="headline">
+                <div class="profile_pic_container ppc_content">
+                    <img src="images/download(3).jpg" class="profile_pic">
+                </div>
+                <div class="name_container">
+                    <p class="name_content"></p>
+                </div>
+            </div>
+
+            <div id="msg_content">
+                <div class="messages"></div>
+                <input class="enterMsg" type="text">
+                <button class="btn">B</button>
+            </div>
+        </div>
+        `;
+        document.querySelector("#content").innerHTML = dynContent;
+    
+        for (let i = 0; i < msgs_arr3.length; i++) {
+            const newMsg = document.createElement("p");
+            newMsg.textContent = msgs_arr3[i];
+            const messages = document.querySelector(".messages");
+            messages.appendChild(newMsg);
+
+            newMsg.style.backgroundColor = "red";
+            newMsg.style.margin = "10px";
+        }
+        document.querySelector(".btn").onclick = function() {
+            const enteredMsg = document.querySelector(".enterMsg").value;
+
+            const newMsg = document.createElement("p");
+            newMsg.textContent = enteredMsg;
+            const messages = document.querySelector(".messages");
+            messages.appendChild(newMsg);
+
+            newMsg.style.backgroundColor = "red";
+            newMsg.style.margin = "10px";
+            msgs_arr3.push(enteredMsg);
+        }
+
+        document.querySelector(".name_content").textContent = document.querySelector("#contact3 .name_contacts").textContent;
+    }
+</script>
+
+</body>
+</html>
