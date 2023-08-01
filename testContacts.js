@@ -1,13 +1,3 @@
-//Functions that button is clicked in the content section for A and B contacts
-function messageCSSForAandB(newMsg) {
-    const messages = document.querySelector(".messages");
-    messages.appendChild(newMsg);
-
-    newMsg.style.backgroundColor = "red";
-    newMsg.style.margin = "10px";
-}
-
-
 const contactA_msgs = [];
 const contactB_msgs = [];
 
@@ -33,17 +23,19 @@ document.querySelector("#contactA").onclick = function() {
     document.querySelector("#content").innerHTML = dynCon;
 
     for (let i = 0; i < contactA_msgs.length; i++) { //Go through the messages in contactA
-        const newMsg = document.createElement("p");
+        const newMsgTag = document.createElement("p");
+        const newMsg = document.createElement("mark");
+
         newMsg.textContent = contactA_msgs[i];
-        messageCSSForAandB(newMsg);
+        messageCSS(newMsgTag, newMsg);
     }
     document.querySelector(".btn").onclick = function() {
         const enteredMsg = document.querySelector(".enterMsg").value;
+        const newMsgTag = document.createElement("p");
+        const newMsg = document.createElement("mark");
 
-        const newMsg = document.createElement("p");
         newMsg.textContent = enteredMsg;
-        messageCSSForAandB(newMsg);
-
+        messageCSS(newMsgTag, newMsg);
         contactA_msgs.push(enteredMsg);
     }
 
@@ -72,17 +64,19 @@ document.querySelector("#contactB").onclick = function() {
     document.querySelector("#content").innerHTML = dynCon;
 
     for (let i = 0; i < contactB_msgs.length; i++) { //Go through the messages in contactB
-        const newMsg = document.createElement("p");
+        const newMsgTag = document.createElement("p");
+        const newMsg = document.createElement("mark");
+
         newMsg.textContent = contactB_msgs[i];
-        messageCSSForAandB(newMsg);
+        messageCSS(newMsgTag, newMsg);
     }
     document.querySelector(".btn").onclick = function() {
         const enteredMsg = document.querySelector(".enterMsg").value;
+        const newMsgTag = document.createElement("p");
+        const newMsg = document.createElement("mark");
 
-        const newMsg = document.createElement("p");
         newMsg.textContent = enteredMsg;
-        messageCSSForAandB(newMsg);
-
+        messageCSS(newMsgTag, newMsg);
         contactB_msgs.push(enteredMsg);
     }
 
