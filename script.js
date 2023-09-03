@@ -1,6 +1,6 @@
 //Add Contacts Dynamically
 const addContacts = `
-    <div id="contactA" class="contacts">
+    <div id="test_contact_1" class="contacts">
         <div class="profile_pic_container ppc_contact">
             <img src="images/num1.png" class="profile_pic">
         </div>
@@ -9,7 +9,7 @@ const addContacts = `
         </div>
     </div>
     
-    <div id="contactB" class="contacts">
+    <div id="test_contact_2" class="contacts">
         <div class="profile_pic_container ppc_contact">
             <img src="images/num2.png" class="profile_pic">
         </div>
@@ -60,6 +60,7 @@ function messageCSS(newMsgTag, newMsg) {
     newMsg.style.maxWidth = "60%";
     newMsg.style.float = "right";
     newMsg.style.clear = "right"; //Clear property makes elements line by line(As float property doesn't do it)
+    newMsg.style.whiteSpace = "pre-wrap"; //pre-wrap value allows to add multiple spaces between words
 }
 
 
@@ -67,6 +68,7 @@ const msgLogsForAllContacts = [];
 
 function contentGenerate(contactID) {
 document.querySelector(`#contact${contactID}`).onclick = function() {
+    //Add the message content dynamically
     const dynContent=`
         <div id="dynContent">
             <div id="headline_content" class="headline">
@@ -76,44 +78,83 @@ document.querySelector(`#contact${contactID}`).onclick = function() {
                 <div class="name_container">
                     <p class="name_content"></p>
                 </div>
-                <button class="removeContact">remove</button>
+
+                <i class="fas fa-ellipsis-v popup_icon"></i>
+                <div class="popup_content">
+                    <p id="delete_contact" class="popup_list">Delete Chat</p>
+                    <p class="popup_list">Report</p>
+                    <p class="popup_list">Block</p>
+                </div>
             </div>
 
             <div id="msg_content">
                 <div class="messages"></div>
                 <input class="enterMsg" type="text">
-                <button class="btn">B</button>
+                <button class="msg_send_btn"><i class="fas fa-arrow-right"></i></button>
             </div>
         </div>
     `;
-document.querySelector("#content").innerHTML = dynContent;
-    
-    for (let i = 0; i < msgLogsForAllContacts[contactID-1].messages.length; i++) { //Go through the messages in relavant contact
-        const newMsgTag = document.createElement("p");
-        const newMsg = document.createElement("mark");
+    document.querySelector("#content").innerHTML = dynContent;
 
-        newMsg.textContent = msgLogsForAllContacts[contactID-1].messages[i]; //Put the message to the mark tag
-        messageCSS(newMsgTag, newMsg);
-    }
-    document.querySelector(".btn").onclick = function() {
-        const enteredMsg = document.querySelector(".enterMsg").value;
-        const newMsgTag = document.createElement("p");
-        const newMsg = document.createElement("mark");
+    //Display the name in the headline_content
+    document.querySelector(".name_content").textContent = document.querySelector(`#contact${contactID} .name_contacts`).textContent;
 
-        newMsg.textContent = enteredMsg; //Entered text in the textfield(enteredMsg) will bind with newMsg(mark tag)
-        messageCSS(newMsgTag, newMsg);
-        msgLogsForAllContacts[contactID-1].messages.push(enteredMsg); //Push the message to the msgLogsForAllContacts array
+    //Happens after click the popup_icon
+    const popup_content = document.querySelector(".popup_content");
+    let count_popup = 0;
+
+    document.querySelector(".popup_icon").onclick = function() {
+        if (count_popup % 2 == 0) {
+            popup_content.style.display = "block";
+            count_popup++;
+        }
+        else {
+            popup_content.style.display = "none";
+            count_popup++;
+        }
     }
-    document.querySelector(".removeContact").onclick = function() {
+
+    //Happens after click the deleteContact
+    document.querySelector("#delete_contact").onclick = function() {
         const contactRemove = document.querySelector(`#contact${contactID}`);
         contactRemove.remove();
 
         const contentRemove = document.querySelector("#dynContent");                   
         contentRemove.remove();
     }
+    //Go through the messages in relavant contact
+    for (let i = 0; i < msgLogsForAllContacts[contactID-1].messages.length; i++) {
+        const newMsgTag = document.createElement("p");
+        const newMsg = document.createElement("mark");
 
-    //Display the name in the headline_content
-    document.querySelector(".name_content").textContent = document.querySelector(`#contact${contactID} .name_contacts`).textContent;
+        newMsg.textContent = msgLogsForAllContacts[contactID-1].messages[i]; //Put the message to the mark tag
+        messageCSS(newMsgTag, newMsg);
+    }
+
+    //Happens after click the msg_send_btn
+    document.querySelector(".msg_send_btn").onclick = sendMessage; //User can send message using msg_send_btn
+    document.querySelector(".enterMsg").addEventListener("keydown", function(event) { //User can send message using enter key
+        if (event.keyCode == 13) {
+            sendMessage();
+        }
+    }
+    );
+
+    function sendMessage() {
+        const enteredMsg = document.querySelector(".enterMsg");
+        const enteredMsgValue = enteredMsg.value.trim(); //User can't send empty messages when using trim method
+
+        if (enteredMsgValue != "") {
+            const newMsgTag = document.createElement("p");
+            const newMsg = document.createElement("mark");
+            newMsg.style.whiteSpace = "pre-wrap";
+
+            newMsg.textContent = enteredMsgValue; //Entered text in the textfield(enteredMsg) will bind with newMsg(mark tag)
+            messageCSS(newMsgTag, newMsg);
+            msgLogsForAllContacts[contactID-1].messages.push(enteredMsgValue); //Push the message to the msgLogsForAllContacts array
+            enteredMsg.value = ""; //Clear the textfield after send the message
+        }
+    }
 }
 
     //Create an object to store the data for a contact

@@ -1,7 +1,8 @@
-const contactA_msgs = [];
-const contactB_msgs = [];
+const test_contact_1_msgs = [];
+const test_contact_2_msgs = [];
 
-document.querySelector("#contactA").onclick = function() {
+document.querySelector("#test_contact_1").onclick = function() {
+    //Add the message content for Test Contact 1 dynamically
     const dynCon = `
         <div id="dynContent">
             <div id="headline_content" class="headline">
@@ -13,36 +14,77 @@ document.querySelector("#contactA").onclick = function() {
                 </div>
             </div>
 
+            <i class="fas fa-ellipsis-v popup_icon"></i>
+            <div class="popup_content">
+                <p id="delete_contact" class="popup_list">Delete Chat</p>
+                <p class="popup_list">Report</p>
+                <p class="popup_list">Block</p>
+            </div>
+
             <div id="msg_content">
                 <div class="messages"></div>
                 <input class="enterMsg" type="text">
-                <button class="btn">B</button>
+                <button class="msg_send_btn"><i class="fas fa-arrow-right"></i></button>
             </div>
         </div>    
     `;
     document.querySelector("#content").innerHTML = dynCon;
 
-    for (let i = 0; i < contactA_msgs.length; i++) { //Go through the messages in contactA
-        const newMsgTag = document.createElement("p");
-        const newMsg = document.createElement("mark");
-
-        newMsg.textContent = contactA_msgs[i];
-        messageCSS(newMsgTag, newMsg);
-    }
-    document.querySelector(".btn").onclick = function() {
-        const enteredMsg = document.querySelector(".enterMsg").value;
-        const newMsgTag = document.createElement("p");
-        const newMsg = document.createElement("mark");
-
-        newMsg.textContent = enteredMsg;
-        messageCSS(newMsgTag, newMsg);
-        contactA_msgs.push(enteredMsg);
-    }
-
+    //Display the Test Contact 1 name in the headline_content
     document.querySelector(".name_content").innerHTML = "Test Contact 1";
+
+    //Happens after click the popup_icon in Test Contact 1
+    const popup_content = document.querySelector(".popup_content");
+    let count_popup = 0;
+
+    document.querySelector(".popup_icon").onclick = function() {
+        if (count_popup % 2 == 0) {
+            popup_content.style.display = "block";
+            count_popup++;
+        }
+        else {
+            popup_content.style.display = "none";
+            count_popup++;
+        }
+    }
+
+    //Go through the messages in Test Contact 1
+    for (let i = 0; i < test_contact_1_msgs.length; i++) {
+        const newMsgTag = document.createElement("p");
+        const newMsg = document.createElement("mark");
+
+        newMsg.textContent = test_contact_1_msgs[i];
+        messageCSS(newMsgTag, newMsg);
+    }
+    
+    //Happens after click the msg_send_btn in Test Contact 1
+    document.querySelector(".msg_send_btn").onclick = sendMessage;
+    document.querySelector(".enterMsg").addEventListener("keydown", function(event) {
+        if (event.keyCode == 13) {
+            sendMessage();
+        }
+    }
+    );
+
+    function sendMessage() {
+        const enteredMsg = document.querySelector(".enterMsg");
+        const enteredMsgValue = enteredMsg.value.trim();
+
+        if (enteredMsgValue != "") {
+            const newMsgTag = document.createElement("p");
+            const newMsg = document.createElement("mark");
+            newMsg.style.whiteSpace = "pre-wrap";
+
+            newMsg.textContent = enteredMsgValue;
+            messageCSS(newMsgTag, newMsg);
+            test_contact_1_msgs.push(enteredMsgValue);
+            enteredMsg.value = "";
+        }
+    }
 }
 
-document.querySelector("#contactB").onclick = function() {
+document.querySelector("#test_contact_2").onclick = function() {
+    //Add the message content for Test Contact 2 dynamically
     const dynCon = `
         <div id="dynContent">
             <div id="headline_content" class="headline">
@@ -54,31 +96,71 @@ document.querySelector("#contactB").onclick = function() {
                 </div>
             </div>
 
+            <i class="fas fa-ellipsis-v popup_icon"></i>
+            <div class="popup_content">
+                <p id="delete_contact" class="popup_list">Delete Chat</p>
+                <p class="popup_list">Report</p>
+                <p class="popup_list">Block</p>
+            </div>
+
             <div id="msg_content">
                 <div class="messages"></div>
                 <input class="enterMsg" type="text">
-                <button class="btn">B</button>
+                <button class="msg_send_btn"><i class="fas fa-arrow-right"></i></button>
             </div>
         </div>    
     `;
     document.querySelector("#content").innerHTML = dynCon;
 
-    for (let i = 0; i < contactB_msgs.length; i++) { //Go through the messages in contactB
-        const newMsgTag = document.createElement("p");
-        const newMsg = document.createElement("mark");
-
-        newMsg.textContent = contactB_msgs[i];
-        messageCSS(newMsgTag, newMsg);
-    }
-    document.querySelector(".btn").onclick = function() {
-        const enteredMsg = document.querySelector(".enterMsg").value;
-        const newMsgTag = document.createElement("p");
-        const newMsg = document.createElement("mark");
-
-        newMsg.textContent = enteredMsg;
-        messageCSS(newMsgTag, newMsg);
-        contactB_msgs.push(enteredMsg);
-    }
-
+    //Display the Test Contact 2 name in the headline_content
     document.querySelector(".name_content").innerHTML = "Test Contact 2";
+
+    //Happens after click the popup_icon in Test Contact 2
+    const popup_content = document.querySelector(".popup_content");
+    let count_popup = 0;
+
+    document.querySelector(".popup_icon").onclick = function() {
+        if (count_popup % 2 == 0) {
+            popup_content.style.display = "block";
+            count_popup++;
+        }
+        else {
+            popup_content.style.display = "none";
+            count_popup++;
+        }
+    }
+
+    //Go through the messages in Test Contact 2
+    for (let i = 0; i < test_contact_2_msgs.length; i++) {
+        const newMsgTag = document.createElement("p");
+        const newMsg = document.createElement("mark");
+
+        newMsg.textContent = test_contact_2_msgs[i];
+        messageCSS(newMsgTag, newMsg);
+    }
+
+    //Happens after click the msg_send_btn in Test Contact 2
+    document.querySelector(".msg_send_btn").onclick = sendMessage;
+    document.querySelector(".enterMsg").addEventListener("keydown", function(event) {
+        if (event.keyCode == 13) {
+            sendMessage();
+        }
+    }
+    );
+
+    function sendMessage() {
+        const enteredMsg = document.querySelector(".enterMsg");
+        const enteredMsgValue = enteredMsg.value.trim();
+
+        if (enteredMsgValue != "") {
+            const newMsgTag = document.createElement("p");
+            const newMsg = document.createElement("mark");
+            newMsg.style.whiteSpace = "pre-wrap";
+
+            newMsg.textContent = enteredMsgValue;
+            messageCSS(newMsgTag, newMsg);
+            test_contact_2_msgs.push(enteredMsgValue);
+            enteredMsg.value = "";
+        }
+    }
 }  
