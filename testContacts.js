@@ -14,8 +14,8 @@ document.querySelector("#test_contact_1").onclick = function() {
                 </div>
             </div>
 
-            <i class="fas fa-ellipsis-v popup_icon"></i>
-            <div class="popup_content">
+            <i id="popup_i_contacts" class="fas fa-ellipsis-v popup_icon"></i>
+            <div id="popup_con_contacts" class="popup_content">
                 <p id="delete_contact" class="popup_list">Delete Chat</p>
                 <p class="popup_list">Report</p>
                 <p class="popup_list">Block</p>
@@ -30,23 +30,8 @@ document.querySelector("#test_contact_1").onclick = function() {
     `;
     document.querySelector("#content").innerHTML = dynCon;
 
-    //Display the Test Contact 1 name in the headline_content
     document.querySelector(".name_content").innerHTML = "Test Contact 1";
-
-    //Happens after click the popup_icon in Test Contact 1
-    const popup_content = document.querySelector(".popup_content");
-    let count_popup = 0;
-
-    document.querySelector(".popup_icon").onclick = function() {
-        if (count_popup % 2 == 0) {
-            popup_content.style.display = "block";
-            count_popup++;
-        }
-        else {
-            popup_content.style.display = "none";
-            count_popup++;
-        }
-    }
+    popupContent();
 
     //Go through the messages in Test Contact 1
     for (let i = 0; i < test_contact_1_msgs.length; i++) {
@@ -83,6 +68,7 @@ document.querySelector("#test_contact_1").onclick = function() {
     }
 }
 
+
 document.querySelector("#test_contact_2").onclick = function() {
     //Add the message content for Test Contact 2 dynamically
     const dynCon = `
@@ -96,8 +82,8 @@ document.querySelector("#test_contact_2").onclick = function() {
                 </div>
             </div>
 
-            <i class="fas fa-ellipsis-v popup_icon"></i>
-            <div class="popup_content">
+            <i id="popup_i_contacts" class="fas fa-ellipsis-v popup_icon"></i>
+            <div id="popup_con_contacts" class="popup_content">
                 <p id="delete_contact" class="popup_list">Delete Chat</p>
                 <p class="popup_list">Report</p>
                 <p class="popup_list">Block</p>
@@ -112,23 +98,8 @@ document.querySelector("#test_contact_2").onclick = function() {
     `;
     document.querySelector("#content").innerHTML = dynCon;
 
-    //Display the Test Contact 2 name in the headline_content
     document.querySelector(".name_content").innerHTML = "Test Contact 2";
-
-    //Happens after click the popup_icon in Test Contact 2
-    const popup_content = document.querySelector(".popup_content");
-    let count_popup = 0;
-
-    document.querySelector(".popup_icon").onclick = function() {
-        if (count_popup % 2 == 0) {
-            popup_content.style.display = "block";
-            count_popup++;
-        }
-        else {
-            popup_content.style.display = "none";
-            count_popup++;
-        }
-    }
+    popupContent();
 
     //Go through the messages in Test Contact 2
     for (let i = 0; i < test_contact_2_msgs.length; i++) {

@@ -47,24 +47,22 @@ const addContacts = `
 `;
 document.querySelector("#contacts").innerHTML = addContacts;
 
-//Functions that button is clicked in the content section
-function messageCSS(newMsgTag, newMsg) {
-    newMsgTag.appendChild(newMsg); //This will append newMsg element(mark tag) to the newMsgTag element(p tag)
-    const messages = document.querySelector(".messages");
-    messages.appendChild(newMsgTag);
+//Happens after click the popup icon on contacts headline
+const popup_content = document.querySelector("#popup_con_headline");
+let count_popup = 0;
 
-    newMsg.style.backgroundColor = "red";
-    newMsg.style.borderRadius = "8px";
-    newMsg.style.margin = "0px 10px 2px 10px";
-    newMsg.style.padding = "8px";
-    newMsg.style.maxWidth = "60%";
-    newMsg.style.float = "right";
-    newMsg.style.clear = "right"; //Clear property makes elements line by line(As float property doesn't do it)
-    newMsg.style.whiteSpace = "pre-wrap"; //pre-wrap value allows to add multiple spaces between words
+document.querySelector("#popup_i_headline").onclick = function() {
+    if (count_popup % 2 == 0) {
+        popup_content.style.display = "block";
+        count_popup++;
+    }
+    else {
+        popup_content.style.display = "none";
+        count_popup++;
+    }
 }
 
-
-const msgLogsForAllContacts = []; 
+const msgLogsForAllContacts = [];
 
 function contentGenerate(contactID) {
 document.querySelector(`#contact${contactID}`).onclick = function() {
@@ -79,8 +77,8 @@ document.querySelector(`#contact${contactID}`).onclick = function() {
                     <p class="name_content"></p>
                 </div>
 
-                <i class="fas fa-ellipsis-v popup_icon"></i>
-                <div class="popup_content">
+                <i id="popup_i_contacts" class="fas fa-ellipsis-v popup_icon"></i>
+                <div id="popup_con_contacts" class="popup_content">
                     <p id="delete_contact" class="popup_list">Delete Chat</p>
                     <p class="popup_list">Report</p>
                     <p class="popup_list">Block</p>
@@ -96,23 +94,8 @@ document.querySelector(`#contact${contactID}`).onclick = function() {
     `;
     document.querySelector("#content").innerHTML = dynContent;
 
-    //Display the name in the headline_content
     document.querySelector(".name_content").textContent = document.querySelector(`#contact${contactID} .name_contacts`).textContent;
-
-    //Happens after click the popup_icon
-    const popup_content = document.querySelector(".popup_content");
-    let count_popup = 0;
-
-    document.querySelector(".popup_icon").onclick = function() {
-        if (count_popup % 2 == 0) {
-            popup_content.style.display = "block";
-            count_popup++;
-        }
-        else {
-            popup_content.style.display = "none";
-            count_popup++;
-        }
-    }
+    popupContent();
 
     //Happens after click the deleteContact
     document.querySelector("#delete_contact").onclick = function() {
