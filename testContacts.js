@@ -4,14 +4,15 @@ const test_contact_msgs   = [];
 let messageID = 0;
 
 function contentGenerateForTest(messageID,testContactID) {
-document.querySelector(`#test_contact_${testContactID}`).onclick = function() {
+    document.querySelector(`#test_contact_${testContactID}`).style.cursor = "pointer";
 
+    document.querySelector(`#test_contact_${testContactID}`).onclick = function() {
     //Add the message content for Test Contacts dynamically
     const dynCon = `
         <div id="dynContent">
             <div id="headline_content" class="headline">
                 <div class="profile_pic_container ppc_content">
-                    <img src="images/num${testContactID}.png" class="profile_pic">
+                    <img src="images/num${testContactID}.png" class="profile_pic_headline">
                 </div>
                 <div class="name_container">
                     <p class="name_content"></p>
@@ -27,12 +28,14 @@ document.querySelector(`#test_contact_${testContactID}`).onclick = function() {
 
             <div id="msg_content">
                 <div class="messages"></div>
-                <input class="enterMsg" type="text">
-                <button class="msg_send_btn"><i class="fas fa-arrow-right"></i></button>
+                <input class="enterMsg" type="text" placeholder="Type a message">
+                <button class="msg_send_btn"><i class="fas fa-chevron-right"></i></button>
             </div>
         </div>    
     `;
     document.querySelector("#content").innerHTML = dynCon;
+    document.querySelector("#content").style.backgroundColor = "#0b141a";
+    document.querySelector(".enterMsg").style.color = "white";
 
     document.querySelector(".name_content").textContent = document.querySelector(`#test_contact_${testContactID} .name_contacts`).textContent;
     popupContent();
@@ -56,6 +59,7 @@ document.querySelector(`#test_contact_${testContactID}`).onclick = function() {
     //Happens after click the msg_send_btn in Test Contacts
     document.querySelector(".msg_send_btn").onclick = sendMessage;
     document.querySelector(".enterMsg").addEventListener("keydown", function(event) {
+        
         if (event.keyCode == 13) {
             sendMessage();
         }
@@ -82,7 +86,7 @@ document.querySelector(`#test_contact_${testContactID}`).onclick = function() {
             enteredMsg.value = "";
         }
     }
-}
+    }
 
     //Create an object to store data for Test Contacts
     const msgLogForTestContacts = {

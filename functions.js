@@ -4,12 +4,17 @@ function messageCSSCommon(newMsgTag, newMsg) {
     const messages = document.querySelector(".messages");
     messages.appendChild(newMsgTag);
 
-    newMsg.style.backgroundColor = "red";
-    newMsg.style.borderRadius = "8px";
-    newMsg.style.margin = "0px 10px 2px 10px";
-    newMsg.style.padding = "8px";
-    newMsg.style.maxWidth = "60%";
-    newMsg.style.whiteSpace = "pre-wrap"; //pre-wrap value allows to add multiple spaces between words
+    newMsg.style.cssText = `
+        color: white;
+        font-family: 'Ubuntu', sans-serif;        
+        font-size: 14px;
+        background-color: #005c4b;
+        border-radius: 8px;
+        margin: 0px 10px 2px 10px;
+        padding: 8px;
+        max-width: 60%;
+        white-space: pre-wrap;
+    `;
 }
 function messageCSS(newMsgTag, newMsg) {
     messageCSSCommon(newMsgTag, newMsg);

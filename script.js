@@ -2,7 +2,7 @@
 const addContacts = `
     <div id="test_contact_1" class="contacts">
         <div class="profile_pic_container ppc_contact">
-            <img src="images/num1.png" class="profile_pic">
+            <img src="images/num1.png" class="profile_pic_contacts">
         </div>
         <div class="name_container">
             <p class="name_contacts">Test Contact 1</p>
@@ -11,7 +11,7 @@ const addContacts = `
     
     <div id="test_contact_2" class="contacts">
         <div class="profile_pic_container ppc_contact">
-            <img src="images/num2.png" class="profile_pic">
+            <img src="images/num2.png" class="profile_pic_contacts">
         </div>
         <div class="name_container">
             <p class="name_contacts">Test Contact 2</p>
@@ -20,7 +20,7 @@ const addContacts = `
 
     <div id="contact1" class="contacts">
         <div class="profile_pic_container ppc_contact">
-            <img src="images/download(1).jpg" class="profile_pic">
+            <img src="images/download(1).jpg" class="profile_pic_contacts">
         </div>
         <div class="name_container">
             <p class="name_contacts">Elon Musk</p>
@@ -29,7 +29,7 @@ const addContacts = `
 
     <div id="contact2" class="contacts">
         <div class="profile_pic_container ppc_contact">
-            <img src="images/download(2).jpg" class="profile_pic">
+            <img src="images/download(2).jpg" class="profile_pic_contacts">
         </div>
         <div class="name_container">
             <p class="name_contacts">Jeff Bezos</p>
@@ -38,7 +38,7 @@ const addContacts = `
 
     <div id="contact3" class="contacts">
         <div class="profile_pic_container ppc_contact">
-            <img src="images/download(3).jpg" class="profile_pic">
+            <img src="images/download(3).jpg" class="profile_pic_contacts">
         </div>
         <div class="name_container">
             <p class="name_contacts">Bill Gates</p>
@@ -65,13 +65,15 @@ document.querySelector("#popup_i_headline").onclick = function() {
 const msgLogsForAllContacts = [];
 
 function contentGenerate(contactID) {
-document.querySelector(`#contact${contactID}`).onclick = function() {
+    document.querySelector(`#contact${contactID}`).style.cursor = "pointer";
+
+    document.querySelector(`#contact${contactID}`).onclick = function() {
     //Add the message content dynamically
     const dynContent=`
         <div id="dynContent">
             <div id="headline_content" class="headline">
                 <div class="profile_pic_container ppc_content">
-                    <img src="images/download(${contactID}).jpg" class="profile_pic">
+                    <img src="images/download(${contactID}).jpg" class="profile_pic_headline">
                 </div>
                 <div class="name_container">
                     <p class="name_content"></p>
@@ -87,12 +89,14 @@ document.querySelector(`#contact${contactID}`).onclick = function() {
 
             <div id="msg_content">
                 <div class="messages"></div>
-                <input class="enterMsg" type="text">
-                <button class="msg_send_btn"><i class="fas fa-arrow-right"></i></button>
+                <input class="enterMsg" type="text" placeholder="Type a message">
+                <button class="msg_send_btn"><i class="fas fa-chevron-right"></i></button>
             </div>
         </div>
     `;
     document.querySelector("#content").innerHTML = dynContent;
+    document.querySelector("#content").style.backgroundColor = "#0b141a";
+    document.querySelector(".enterMsg").style.color = "white";
 
     document.querySelector(".name_content").textContent = document.querySelector(`#contact${contactID} .name_contacts`).textContent;
     popupContent();
@@ -117,6 +121,7 @@ document.querySelector(`#contact${contactID}`).onclick = function() {
     //Happens after click the msg_send_btn
     document.querySelector(".msg_send_btn").onclick = sendMessage; //User can send message using msg_send_btn
     document.querySelector(".enterMsg").addEventListener("keydown", function(event) { //User can send message using enter key
+
         if (event.keyCode == 13) {
             sendMessage();
         }
@@ -138,7 +143,7 @@ document.querySelector(`#contact${contactID}`).onclick = function() {
             enteredMsg.value = ""; //Clear the textfield after send the message
         }
     }
-}
+    }
 
     //Create an object to store the data for a contact
     const msgLogForContact = {
