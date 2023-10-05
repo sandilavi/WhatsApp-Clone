@@ -1,0 +1,133 @@
+/*Icons*/
+#icons_headline {
+    margin-left: 200px;
+}
+#icons_headline span {
+    position: relative;
+    top: 25px;
+    margin-left: 20px;
+    color: #aebac1;
+}
+#icons_headline span:hover {
+    cursor: pointer;
+}
+
+#icons_content {
+    margin-left: 840px;
+}
+#icons_content span {
+    margin-top: 25px;
+    margin-left: 20px;
+    color: #aebac1;
+}
+#icons_content span:hover {
+    cursor: pointer;
+}
+
+#icons_content_test {
+    margin-left: 840px;
+}
+#icons_content_test span {
+    margin-top: 25px;
+    margin-left: 20px;
+    color: #aebac1;
+}
+#icons_content_test span:hover {
+    cursor: pointer;
+}
+
+#icons_msgs {
+    margin-left: 10px;
+}
+#icons_msgs span {
+    margin-top: 25px;
+    margin-left: 10px;
+    color: #aebac1;
+}
+#icons_msgs span:hover {
+    cursor: pointer;
+}
+
+/*Popup Windows*/
+.popup_content {
+    display: none;
+    width: 200px;
+    height: 200px;
+    color: white;
+    background-color: #233138;
+    position: fixed;
+    top: 50px;
+}
+.popup_content span {
+    display: block;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-family: 'EB Garamond', serif;
+}
+.popup_content span:hover  {
+    background-color: #111b21;
+}
+
+/*Popup Window Headline*/
+#popup_con_headline {
+    left: 180px;
+}
+
+/*Popup Window Contacts*/
+#popup_i_contacts {
+    left: 1340px;
+}
+#popup_con_contacts {
+    left: 1140px;
+}
+
+/*Content*/
+.name_content {
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+}
+#msg_container {
+    height: calc(100vh - 18.8%);
+    overflow-y: scroll;
+}
+#msg_container::-webkit-scrollbar {
+    width: 7px;
+    background-color: #0b141a;
+}
+#msg_container::-webkit-scrollbar-thumb {
+    background-color: #3c4348;
+}
+.enterMsg_container {
+    position: fixed;
+    top: 605px;
+    left: 411px;
+    width: 100%;
+    height: 10%;
+    background-color: #202c33;
+}
+.enterMsg {
+    position: fixed;
+    resize: none;
+    border: none;
+    top: 615px;
+    left: 510px;
+    width: 58%;
+    height: 7%;
+    padding-top: 10px;
+    background-color: #2a3942;
+    border-radius: 8px;
+    padding-left: 10px;
+}
+.enterMsg:focus {
+    outline: none;
+}
+.msg_send_btn {
+    position: fixed;
+    cursor: pointer;
+    font-size: 32px;
+    top: 628px;
+    left: 1320px;
+    width: 35px;
+    height: 5%;
+    color: #aebac1;
+}
